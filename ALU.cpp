@@ -4,53 +4,67 @@
 которые можно выполнять над данными.
 На данный момент присутствуют макеты
 арифметических и логических операций.
-
 */
-enum class Operators
+/*Посмотреть на файл evaluator.cpp и переписать поведение следующей функции под неё*/
+#include "operations.h"
+/*функция вычисления арифметических выражений*/
+template <typename M, typename P>
+P eval(NumOperations a, M firstArg, M secondArg)
 {
-    Add = 1,
-    Sub,
-    Mult,
-    Div
-};
-enum class BoolFunc
-{
-    FALSE,
-    TRUE
-
-};
-enum class Ord
-{
-    LT,
-    EQ,
-    RT
-};
-template <class T, typename N>
-class Eval
-{
-    int add(T x, N, y)
+    switch(a)
     {
-    }
-    int sub(T x, N y)
-    {
-    }
-    int mult(T x, N y)
-    {
+        case NumOperations::Add :{
+            return firstArg + secondArg;
+        }
+        break;
+        case NumOperations::Sub :{
+            return firstArg - secondArg;
+        }
+        break;
+        case NumOperations::Mult :{
+            return firstArg * secondArg;
+        }
+        break;
     }
 
-    int div(T x, N y)
+}
+/*функции вычисления логических выражений*/
+BoolFunc eval(BoolOperations a, BoolFunc b, BoolFunc c)
+{
+    switch(a)
     {
+        BoolOperations::logAnd :{
+            return (x == BoolFunc::TRUE) ? y : BoolFunc::FALSE;
+        }
+        break;
+        BoolOperations::logOr :{
+            return (x == BoolFunc::TRUE) ? BoolFunc::TRUE : y;
+        }
+        break;
+        BoolOperations::logNot :{
+            return x == BoolFunc::TRUE ? BoolFunc::FALSE : BoolFunc::TRUE;
+        }
+        break;
     }
-};
-BoolFunc logAnd(BoolFunc x, BoolFunc y)
-{
-    return (x == BoolFunc::TRUE) ? y : BoolFunc::FALSE;
 }
-BoolFunc logOr(BoolFunc x, BoolFunc y)
+
+/*функция вычисления операция сравнения*/
+BoolFunc eval(CompOperations a, int b, int c)
 {
-    return (x == BoolFunc::TRUE) ? BoolFunc::TRUE : y;
-}
-BoolFunc logNot(BoolFunc x)
-{
-    x == BoolFunc::TRUE ? BoolFunc::FALSE : BoolFunc::TRUE;
+    switch(a)
+    {
+        
+        case CompOperations::Less :{
+            return ((b - c) < 0) ? BoolFunc::TRUE : BoolFunc::FALSE;
+        }
+        break;
+        case CompOperations::Equal :{
+            return ((b - c) == 0) ? BoolFunc::TRUE : BoolFunc::FALSE;
+        }
+        break;
+        case CompOperations::Rather :{
+            return ((b - c) > 0) ? BoolFunc::TRUE : BoolFunc::FALSE;
+        }
+        break;
+    }
 }

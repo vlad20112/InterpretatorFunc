@@ -1,18 +1,25 @@
+/*
+ В данном модуле описана структура данных, которая выполняет хранение
+ всей необходимой информации для составления функции. Неплохо бы 
+ её протестировать на наличие недочетов в её проектировании.
+*/
+
+#ifndef CONSTRUCTORELEM_H
 #define CONSTRUCTORELEM_H
-template <class T>
 #include <list>
 #include <string>
+template <class T>
 class Construction
 {
 private:
-    std::string functionName;
-    std::list functionArguments;
-    T constructorTree;
+    T constructorTree; // комбинаторная контрукция
+    std::string functionName; // имя функции. По нему происходит поиск среди существующих функций и вызов с аргументами
+    std::list<std::string> functionArguments; // список параметров, применяемых внутри тела функции 
 
 public:
-    Construction(std::string name, std::list arguments, T tree) : functionName(name),
-                                                                  functionArguments(arguments),
-                                                                  constructorЕree(tree) {}
+    Construction(std::string name, std::list<std::string> arguments, T combinator) : functionName(name),
+                                                                                     functionArguments(arguments),
+                                                                                     constructorTree(combinator) {}
     T getConstructorTree()
     {
         return constructorTree;
@@ -21,8 +28,9 @@ public:
     {
         return functionName;
     }
-    std::list getArguments()
+    std::list<std::string> getArguments()
     {
         return functionArguments;
     }
 };
+#endif

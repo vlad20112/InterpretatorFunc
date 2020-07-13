@@ -18,6 +18,7 @@ C - 4;
 #ifndef COMBINATORS_H
 #define COMBINATORS_H
 #include <ostream>
+#include "types.h"
 using namespace std;
 /*абстрактный класс, в котором хранится информация о типе комбинатора*/
 class AbstractCombinator
@@ -26,10 +27,7 @@ private:
     int type;
 
 public:
-    void setType(int a)
-    {
-        type = a;
-    }
+    void setType(int a) { type = a; }
     int getType() { return type; }
 };
 /*опиcание ккомбинатора S*/
@@ -38,22 +36,14 @@ class S : public AbstractCombinator
 {
 private:
     T firstArg;
-    T secondArg;
+    N secondArg;
 public:
     /*реализация конструктора комбинатора S*/
-    S<T, N>(T f, N g) : firstArg(f),
-                        secondArg(g)
-    {
-        setType(0);
-    }
-    T getfirstArg()
-    {
-        return firstArg;
-    }
-    N getSecondArg()
-    {
-        return secondArg;
-    }
+    S<T, N> (T f, N g) : firstArg(f),
+                         secondArg(g)
+    {setType(Comb::SS);}
+    T getFirstArg() { return firstArg; }
+    N getSecondArg(){ return secondArg; }
     /*описание методов ввода/вывода комбинатора S*/
     friend istream &operator>>(std::istream &in, const S<T, N> &elem)
     {
@@ -73,13 +63,9 @@ class K : public AbstractCombinator
 {
 private:
     T firstArg;
-
 public:
-    K(T a);
-    T getFirstArg()
-    {
-        return firstArg;
-    }
+    K<T>(T a) : firstArg(a) {setType(Comb::KK);}
+    T getFirstArg() {return firstArg;}
     /*описание методов ввода/вывода комбинатора К*/
     friend std::ostream &operator<<(std::ostream &out, const K<T> &elem)
     {
@@ -92,25 +78,16 @@ public:
         return in;
     }
 };
-/*реализация конструктора комбинатора К*/
-template <typename T>
-K<T>::K(T a) : firstArg(a)
-{
-    setType(1);
-}
+
 /*Описание комбинатора I*/
 template <typename T>
 class I : public AbstractCombinator
 {
 private:
     T firstArg;
-
 public:
     /*реализация конструктора I*/
-    I<T>(T arg) : firstArg(arg)
-    {
-        setType(2);
-    }
+    I<T>(T arg) : firstArg(arg) {setType(Comb::II);}
     T getArg()
     {
         return firstArg;
@@ -124,8 +101,54 @@ public:
 
     friend ostream &operator<<(std::ostream &out, const I<T> &elem)
     {
-        out << "I(" << elem.firstArg << ")";
+        out << "I";
         return out;
     }
 };
+/*реализация B комбинатора*/
+template<class T, class N>
+class B: public AbstractCombinator
+{
+private:
+    T firstArg;
+    N secondArg;
+public:
+    B<T,N> (T a, N b): firstArg(a),
+                       secondArg(b)
+    {setType(Comb::BB);}
+    T getFirstArg() { return firstArg;}
+    N getSecondArg() { return secondArg;}
+    friend ostream &operator<<(std::ostream &out, const B<T,N> &elem)
+    {
+        out << "B(" << elem.firstArg << "," << elem.secondArg << ")";
+        return out;
+    }
+};
+template<class T, class N>
+class C: public AbstractCombinator
+{
+private:
+    T firstArg;
+    N secondArg;
+public:
+    C<T,N> (T a, N b): firstArg(a),
+                       secondArg(b)
+    {setType(Comb::CC);}
+    T getFirstArg() {return firstArg;}
+    N getSecondArg() {return secondArg;}
+    friend ostream &operator<<(std::ostream &out, const C<T,N> &elem)
+    {
+        out << "C(" << elem.firstArg << "," << elem.secondArg << ")";
+        return out;
+    }
+};
+//дополнительная реализация для вывода на консоль переменных типа std::pair
+template <typename T, typename P>
+ostream &operator<<(std::ostream &out, std::pair<T,P> &elem){
+        out <<"(" << elem.first << "," << elem.second << ")";
+        return out;
+    }
+const int &operator$(int a){
+    return 3;
+}
 #endif

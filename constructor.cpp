@@ -3,21 +3,23 @@
   Подразумевается. что в программе может быть описан некоторый набор фукнкций*/
 /*Function->(functionName, [ListArgs], Combinator *)*/
 #include "combinators.h"
+#include "constructor.h"
 #include <iostream>
-template <class T, class P, typename N>
-class Constructor
-{
-  Constructor(){};
-  I<T> createI(T elem)
+
+template <typename T>
+I<T> createI(T elem)
   {
     return I<T>(elem);
   }
-  K<T, N> createK(T firstArg, N secondArg)
+template<typename T>
+K<T> createK(T firstArg)
   {
-    return K<T, N>(firstArg, secondArg);
+    K<T> result(firstArg);
+    return result;
   }
-  S<T, P, N> createS(T firstArg, P secondArg, N thirdArg)
+template<class T, class P>
+S<T,P> createS(T firstArg, P secondArg)
   {
-    return S<T, P, N>(firstArg, secondArg, thirdArg);
+    return S<T, P>(firstArg, secondArg);
   }
-};
+//Затравка для дальнейших изменений

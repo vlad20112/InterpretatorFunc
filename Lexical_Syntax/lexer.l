@@ -1,4 +1,3 @@
-#define 
 letter   [a-zA-Z]
 num      [0-9]
 num1     [1-9]
