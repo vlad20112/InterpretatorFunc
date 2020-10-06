@@ -31,21 +31,30 @@ auto createOperationLine(const int &opCode,const A &a, const B &b)
     return res;
 }
 template<class A, class B>
-struct OperationStack{
-    std::list<OperationLine<A,B>> listComands;
-};
-template<class A, class B>
-void getResultStack(OperationStack<A,B> comandsList)
-{
-    for(int i = comandsList.listComands.length(); i--;i > 1)
-    {
-        int promRes = evalRes(
-            comandsList.listComands.getOperation(),
-            comandsList.listComands.getArgOne(),
-            comandsList.listComands.getArgTwo()
-        );
-        comandsList.listComands.setResult(promRes);
-    }   
-}
-
+class OperationStack{
+    private:
+        std::list<OperationLine<A,B>> listComands;
+    public:
+    //Конструктор, дестркутор
+        OperationStack();
+        ~OperationStack();
+    /* Реализация оператора возврата значения (например, действие ($2) должно вернуть 
+       значение поля result из строки под номером 2)
+    */
+        const int &operator$(int index){ return listComands[index].getResult; }
+        void addComand(OperationLine<A,B> elem) { listComands.push_back(elem); }
+        void getResultStack()
+        {
+            for(int i = listComands.length();i > 1; i--)
+            {
+                int promRes = evalRes(
+                listComands[i].getOperation(),
+                listComands[i].getArgOne(),
+                listComands[i].getArgTwo()
+                );
+            listComands[i].listComands.setResult(promRes);
+            }   
+        }
+        
+    };
 #endif

@@ -2,7 +2,7 @@
   формируют специальную конструкцию для хранения одной функции, описанной в программе
   Подразумевается. что в программе может быть описан некоторый набор фукнкций*/
 /*Function->(functionName, [ListArgs], Combinator *)*/
-#include "combinators.h"
+#include "Libs/combinators.h"
 #include "constructor.h"
 #include <iostream>
 

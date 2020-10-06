@@ -2,9 +2,9 @@
     Этот модуль предназначен для тестирования разных функций, которые будут
     появляться при написании кода
     команда в консоли для компиляции:
-    g++ -o 4.exe test.cpp -std=c++1y
+    g++ -o <Название_исполняемого_файла>.exe test.cpp -std=c++1y 
 */
-#include "combinators.h"
+#include "Libs/combinators.h"
 #include "evaluator.cpp"
 #include "constructor.cpp"
 #include "constructorElem.h"
@@ -51,6 +51,7 @@ int main()
     //cout << combik3.first << " " << combik3.second << endl;
     cout << combik << endl;
     cout << combik2 << endl;
+    /*Проверка корректности выполнения команд*/
     cout << "this is comand number: " << translateToComand('+')<<endl;
     cout << "this is comand number: " << translateToComand('=')<<endl;
     cout << "this is comand number: " << translateToComand('*')<<endl;
@@ -59,12 +60,6 @@ int main()
     cout << res4 << endl;
     cout << res5 << endl;
     cout << "result of working: "<< evalRes(10, 4, 2) << endl;
-    /*
-    Данные не хранятся внутри экземпляра класса.
-    Нижевызываемые функции возвращают нулевые значения.
-    Разобраться, с чем это может быть связано.
-    Скорее всего, это связано с указателями.
-    */
     OperationLine<int, int> line(11, 3, 6);
     int co = line.getOperation();
     cout << co << endl;
@@ -76,6 +71,5 @@ int main()
     line.setResult(evalRes(co, kk, pp));
     cout <<"Res: " << evalRes(co, kk, pp) << endl;
     cout << "result in struct: " << line.getResult() << endl;
-    //delete (line);
     return 0;
 }
