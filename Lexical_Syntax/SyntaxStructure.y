@@ -1,24 +1,11 @@
-%token keyword_if
-%token keyword_else
-%token keyword_then
-%token keyword_let
-%token Bool
-%token logic_or
-%token logic_and
-%token logic_not
-%token String
-%token Char
-%token idkey
-%token keyword_lambda
-%token Int
-%token Float
+
 %%
 Start:  Main
 	;
-Main: /* пусто */
+Main: /* пїЅпїЅпїЅпїЅпїЅ */
 	|Block_Func
 	;
-Block_Func: /* пусто */ 
+Block_Func: /* пїЅпїЅпїЅпїЅпїЅ */ 
 	| Function Block_Func
 	;
 Function: idkey '[' Arg_list ']' '=' Expr
@@ -26,16 +13,16 @@ Function: idkey '[' Arg_list ']' '=' Expr
     |BExpr
     |Cond
     |LetExpr
-    |Type   /*предполагается, что тут будут храниться константные значения */
+    |Type   /*пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
 	;
-Arg_list:/* пусто */ 
+Arg_list:/* пїЅпїЅпїЅпїЅпїЅ */ 
 	|idkey ',' Arg_list
 	;
-Expr: /* пусто */
+Expr: /* пїЅпїЅпїЅпїЅпїЅ */
 	| Expr1 Expr
 	;
 
-Expr1: /* пусто */
+Expr1: /* пїЅпїЅпїЅпїЅпїЅ */
 	|Value '-'  Expr1
 	|Value '*' Expr1
 	|Value '/' Expr1
@@ -53,10 +40,10 @@ LetExpr: keyword_let idkey '=' Expr
 Value: idkey
 	| Type_number
 	;
-BExpr: /* пусто */ 
+BExpr: /* пїЅпїЅпїЅпїЅпїЅ */ 
 	|BExpr1 BExpr
 	;
-BExpr1: /* пусто */
+BExpr1: /* пїЅпїЅпїЅпїЅпїЅ */
 	| BValue BOp BExpr1
 	;
 BValue: idkey

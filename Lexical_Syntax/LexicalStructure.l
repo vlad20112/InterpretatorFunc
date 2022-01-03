@@ -1,4 +1,8 @@
-#define 
+%{
+    #include "scanner.h"
+%} 
+
+
 letter   [a-zA-Z]
 num      [0-9]
 num1     [1-9]
@@ -39,23 +43,6 @@ int func_count, args_count;
 .               {printf("error");}
 %%
 
-main( argc, argv)
-int argc;
-char **argv;
-{
-    ++argv, --argc;
-    if(argc > 0)
-        yyin = fopen( argv[0],"r");
-    else
-        yyin = stdin;
-    yylex();
-}
 int yywrap(){
-    if(yyin != NULL) {
-        return 0;
-    }
     return 1;
-}
-void appendLexem (char *lexem){
-    
 }
