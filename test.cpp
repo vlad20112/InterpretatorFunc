@@ -5,10 +5,10 @@
     g++ -o <Название_исполняемого_файла>.exe test.cpp -std=c++1y 
 */
 #include "Libs/combinators.h"
-#include "evaluator.cpp"
-#include "constructor.cpp"
-#include "constructorElem.h"
-#include "evalStack.h"
+#include "Eval/evaluator.h"
+#include "Construct/constructor.h"
+#include "Construct/constructorElem.h"
+#include "Eval/evalStack.h"
 #include <iostream>
 using namespace std;
 int main()
@@ -36,14 +36,14 @@ int main()
     cout << firArg << endl;
     cout << send << endl;
     cout << send.getType() << endl;
-    cout << applyToCombinator(firArg, 2) << endl;
+    //cout << applyToCombinator(firArg, 2) << endl;
     cout << res << endl;
     cout <<"res 2 "<< res2 << endl;
    // cout << combik.getFirstArg() << endl;
     //cout << combik.getSecondArg() << endl;
     //cout << applyToCombinator(send, 4) << endl;
     //cout << applyToCombinator(numb, '4') << endl;
-    cout << "I comb res " << applyToCombinator(send2, 45) << endl;
+    //cout << "I comb res " << applyToCombinator(send2, 45) << endl;
     cout << combik4 << endl;
     cout << combik6 << endl;
     cout << combik7 << endl;

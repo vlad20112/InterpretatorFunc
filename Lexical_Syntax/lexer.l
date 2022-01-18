@@ -36,6 +36,7 @@ int func_count, args_count;
 " "             {printf(" ");}
 \.              {printf(".");}
 .               {printf("error");}
+
 %%
 
 main( argc, argv)
