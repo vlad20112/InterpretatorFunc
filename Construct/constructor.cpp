@@ -4,9 +4,7 @@
 Function->(functionName, [ListArgs], Combinator *)
 Сами комбинаторы не дожны ничего знать о типе данных, которые в них помещаются*/
 
-#include "../Libs/combinators.h"
 #include "constructor.h"
-#include <iostream>
 
 template <typename T>
 I<T> createI(T elem)

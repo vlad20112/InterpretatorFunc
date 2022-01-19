@@ -1,5 +1,4 @@
 #include "../Eval/evaluator.h"
-#include "../Libs/operations.h"
 #include <iostream>
 BoolFunc logicAnd(BoolFunc a, BoolFunc b);
 BoolFunc logicOr(BoolFunc a, BoolFunc b);
@@ -143,7 +142,7 @@ BoolFunc logicNot (BoolFunc a)
 	return (a == BoolFunc::FALSE) ? BoolFunc::TRUE : BoolFunc::FALSE;
 }
 
-/*Функия вычисления рнезультата сравнения*/
+/*Функия вычисления результата сравнения*/
 Ord compValues (int a, int b, int c)
 {
 	Ord res = Ord::EQ;

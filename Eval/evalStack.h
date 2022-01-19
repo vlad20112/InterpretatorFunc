@@ -1,6 +1,7 @@
 /*под полями с шаблонами В и С могут быть как константные значения, так и указатели на результат некоторой операции */
 #ifndef EVALSTACK_H
 #define EVALSTACK_H
+#include <list>
 template <class A, class B>
 class OperationLine{
     private:

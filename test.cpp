@@ -4,11 +4,9 @@
     команда в консоли для компиляции:
     g++ -o <Название_исполняемого_файла>.exe test.cpp -std=c++1y 
 */
-#include "Libs/combinators.h"
+
 #include "Eval/evaluator.h"
 #include "Construct/constructor.h"
-#include "Construct/constructorElem.h"
-#include "Eval/evalStack.h"
 #include <iostream>
 using namespace std;
 int main()

@@ -1,7 +1,7 @@
 CC = g++
 all: test
 test: test.o
-	${CC} -o test test.o constructor.o ALU.o evaluator.o -std=c++1y -Wall -pedantic
+	${CC} -o test test.o constructor.o evaluator.o 
 test.o: test.cpp
 	${CC} -c test.cpp
 constructor.o:

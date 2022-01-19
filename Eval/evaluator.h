@@ -11,8 +11,10 @@
  Хорошо это или плохо, не знаю. Пока кое-как работает */
 #ifndef EVALUATOR_H
 #define EVALUATOR_H
-#include "../Libs/combinators.h"
+#include "evalStack.h"
+#include "../Construct/constructor.h"
 #include "../Libs/operations.h"
+#include "../Libs/combinators.h"
 template<typename T, typename P>
 auto applyToCombinator(K<T> a, P b);
 template<typename T, typename P>
