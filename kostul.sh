@@ -2,8 +2,10 @@ cd Construct/
 g++ -c constructor.cpp
 mv constructor.o ../
 cd ../
-cd EvalSrc/
+cd Eval/
 g++ -c evaluator.cpp
 mv evaluator.o ../
 cd ../
 make
+rm constructor.o
+rm evaluator.o

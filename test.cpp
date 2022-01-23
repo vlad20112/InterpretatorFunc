@@ -5,8 +5,8 @@
     g++ -o <Название_исполняемого_файла>.exe test.cpp -std=c++1y 
 */
 
-#include "Eval/evaluator.h"
-#include "Construct/constructor.h"
+#include "Eval/evaluator.cpp"
+#include "Construct/constructor.cpp"
 #include <iostream>
 using namespace std;
 int main()
