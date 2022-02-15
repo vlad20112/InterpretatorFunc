@@ -9,3 +9,4 @@ cd ../
 make
 rm constructor.o
 rm evaluator.o
+rm test.o

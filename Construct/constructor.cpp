@@ -6,10 +6,9 @@ Function->(functionName, [ListArgs], Combinator *)
 
 #include "constructor.h"
 
-template <typename T>
-I<T> createI(T elem)
+I createI()
   {
-    return I<T>(elem);
+    return I();
   }
 template<typename T>
 K<T> createK(T firstArg)

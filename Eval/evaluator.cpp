@@ -11,8 +11,8 @@ auto applyToCombinator(K<T> a, P b) {
     return a.getFirstArg();
 }
 //Функция для I - комбинатора
-template<typename H, typename P>
-auto applyToCombinator(I<H> a, P b)
+template<typename P>
+auto applyToCombinator(I a, P b)
 {
     return b;
 }
@@ -51,16 +51,16 @@ std::pair<T,N> applyToCombinator(S<K<T>,K<N> > a, P b)
     return std::make_pair(leftLeaf, rightLeaf);
 }
 //случай S(K,I)
-template<typename T, typename N, typename P>
-std::pair<T,P> applyToCombinator(S<K<T>,I<N> > a, P b)
+template<typename T,typename P>
+std::pair<T,P> applyToCombinator(S<K<T>,I> a, P b)
 {
     auto leftLeaf = applyToCombinator(a.getFirstArg(),b);
     auto rightLeaf = applyToCombinator(a.getSecondArg(),b);
     return std::make_pair(leftLeaf, rightLeaf);
 }
 //Случай S(S(K,K),I)
-template<typename T, typename H, typename R, typename P>
-std::pair<std::pair<T,H>,R> applyToCombinator(S <S <K<T>, K<H> >, I<R> > a, P b)
+template<typename T, typename H, typename P>
+std::pair<std::pair<T,H>,I> applyToCombinator(S <S <K<T>, K<H> >, I> a, P b)
 {
     auto leftLeaf = applyToCombinator(a.getFirstArg(), b);
     auto rightLeaf = applyToCombinator(a.getSecondArg(), b);

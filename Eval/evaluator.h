@@ -17,16 +17,22 @@
 #include "../Libs/combinators.h"
 template<typename T, typename P>
 auto applyToCombinator(K<T> a, P b);
-template<typename T, typename P>
-auto applyToCombinator(I<T> a, P b);
+
+template<typename P>
+P applyToCombinator(I a, P b);
+
 template<class T, class N, typename P>
 std::pair<T,N> applyToCombinator(S<T,N> a, P b);
+
 template<typename T, typename N, typename P>
 std::pair<T,N> applyToCombinator(S<K<T>,K<N>> a, P b);
+
 template<typename T,typename N, typename P>
-std::pair<T,P> applyToCombinator(S<K<T>,I<N>> a, P b);
+std::pair<T,P> applyToCombinator(S<K<T>,I> a, P b);
+
 template <typename N, typename P>
 std::pair<N, P> applyToCombinator (N a, P b);
+
 int evalRes(int a, int b, int c);
 int translateToComand(char a);
 //функция возвращает код хранимой в комбинаторе операции

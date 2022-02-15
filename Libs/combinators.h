@@ -80,26 +80,16 @@ public:
 };
 
 /*Описание комбинатора I*/
-template <typename T>
 class I : public AbstractCombinator
 {
-private:
-    T firstArg;
+
 public:
     /*реализация конструктора I*/
-    I<T>(T arg) : firstArg(arg) {setType(Comb::II);}
-    T getArg()
-    {
-        return firstArg;
-    }
-    /*описание методов ввода/вывода комбинатора I*/
-    friend istream &operator>>(std::istream &in, const I<T> &elem)
-    {
-        in >> elem.firstArg;
-        return in;
-    }
+    I(){setType(Comb::II);}
 
-    friend ostream &operator<<(std::ostream &out, const I<T> &elem)
+    /*описание методов ввода/вывода комбинатора I*/
+
+    friend ostream &operator<<(std::ostream &out, const I &elem)
     {
         out << "I";
         return out;

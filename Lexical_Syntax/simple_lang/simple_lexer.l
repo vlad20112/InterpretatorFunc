@@ -13,6 +13,6 @@ NUM      (({num1}+({num})*)|0)
 {NUM}       {yylval.num = atoi(yytext); return number;}
 {ID}        {yylval.id = yytext[0]; return identifier;}
 [-+=]       {return yytext[0];}
-" "          {};
+" "         ;
 .           {printf("What is that!?? \n");}
 %%

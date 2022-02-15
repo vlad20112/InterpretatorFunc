@@ -6,10 +6,17 @@ Function->(functionName, [ListArgs], Combinator *)*/
 #define CONSTR_H
 #include "constructorElem.h"
 #include "../Libs/combinators.h"
+#include "../Libs/contVar.h"
 template <typename T>
 I<T> createI(T elem);
 template <typename T>
 K<T> createK(T firstArg);
 template <class T, class P>
 S<T,P> createS(T firstArg, P secondArg);
+template <class T>
+T transformToSK(int ch, contVar container[])
+{
+  T result;
+  return result;
+}
 #endif
