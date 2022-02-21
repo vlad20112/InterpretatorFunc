@@ -27,25 +27,24 @@
 %token print
 %token exit_com
 //Declaratons types for return value
-%type <num> main Expr Value
+%type <num> Expr Value
+%type <id> id_line
 %%
-main: exit_com                  {exit(EXIT_SUCCESS);}
+main: id_line                   {;/* printf("Argument has added \n Index: %d \n Value in container: %d identifier in container: %c", indexer, container[indexer - 1].value, container[indexer - 1].id); */}
+     |exit_com                  {exit(EXIT_SUCCESS);} 
      |print Expr                {printf("%d \n", $2);}
-     |id_line                   {/* printf("Argument has added \n Index: %d \n Value in container: %d identifier in container: %c", indexer, container[indexer - 1].value, container[indexer - 1].id); */}
-     |Expr                      {}
-     |main id_line              {/* printf("Argument has added \n Index: %d \n Value in container: %d ", indexer, container[indexer].value); */}
+     |main id_line              {;/* printf("Argument has added \n Index: %d \n Value in container: %d ", indexer, container[indexer].value); */}
      |main print Expr           {printf("Result rec is: %d \n", $3);}
      |main exit_com             {exit(EXIT_SUCCESS);}
-     |main Expr                 {}
      ;
 
-id_line: identifier '=' Value   {addToArgs($1, $3);} 
+id_line: identifier '=' Expr   {addToArgs($1, $3);} 
     ;
 
 Expr: Value                     {$$ = $1;}
-    |Expr '-' Expr              {$$ = $1 - $3;}
-	|Expr '*' Expr              {$$ = $1 * $3;}
-    |Expr '+' Expr              {$$ = $1 + $3;}
+    |Expr '-' Value              {$$ = $1 - $3;}
+	|Expr '*' Value              {$$ = $1 * $3;}
+    |Expr '+' Value              {$$ = $1 + $3;}
 	;
 
 Value: number                   {$$ = $1;}

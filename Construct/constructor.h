@@ -8,7 +8,7 @@ Function->(functionName, [ListArgs], Combinator *)*/
 #include "../Libs/combinators.h"
 #include "../Libs/contVar.h"
 template <typename T>
-I<T> createI(T elem);
+I createI();
 template <typename T>
 K<T> createK(T firstArg);
 template <class T, class P>
