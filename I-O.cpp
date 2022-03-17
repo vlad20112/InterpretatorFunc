@@ -33,16 +33,22 @@ class InputOutput
     out << "S(" << elem.firstArg << "," << elem.secondArg << ")";
     return out;
   }
-  /*ввод-вывод комбинатора I*/
-  std::istream &operator>>(std::istream &in, const I<T> &elem)
-  {
-    in >> elem.firstArg;
-    return in;
-  }
-
-  std::ostream &operator<<(std::ostream &out, const I<T> &elem)
-  {
-    out << "I(" << elem.firstArg << ")";
-    return out;
-  }
+  /*B-комбинатор*/
+    friend ostream &operator<<(std::ostream &out, const B<T,N> &elem)
+    {
+        out << "B(" << elem.firstArg << "," << elem.secondArg << ")";
+        return out;
+    }
+    /*С-комбинатор*/
+      friend ostream &operator<<(std::ostream &out, const C<T,N> &elem)
+    {
+        out << "C(" << elem.firstArg << "," << elem.secondArg << ")";
+        return out;
+    }
+  //дополнительная реализация для вывода на консоль переменных типа std::pair
+template <typename T, typename P>
+ostream &operator<<(std::ostream &out, std::pair<T,P> &elem){
+        out <<"(" << elem.first << "," << elem.second << ")";
+        return out;
+    }  
 };

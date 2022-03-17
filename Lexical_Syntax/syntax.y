@@ -19,6 +19,7 @@
 %type <num> Expr
 %type <bl> BExpr
 %%
+
 Start:  Main
 	;
 Main: /* ����� */
@@ -41,11 +42,11 @@ Expr: /* ����� */
 	| Expr1 Expr
 	;
 
-Expr1: /* ����� */
-	|Value '-' Expr1
-	|Value '*' Expr1
-	|Value '/' Expr1
-    |Value '+' Expr1
+Expr1: Value
+	|Expr1 '-' Value  
+	|Expr1 '*' Value  
+	|Expr1 '/' Value  
+    |Expr1 '+' Value  
 	;
 
 LambdaExpr: 'lambda' identifier '.' LambdaExpr

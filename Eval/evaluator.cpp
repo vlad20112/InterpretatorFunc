@@ -7,12 +7,12 @@ BoolFunc logicNot(BoolFunc a);
 /*функции выполнения операции применения аргумента к комбинаторам*/
 //Функция для К-комбинатора
 template<typename T, typename P>
-auto applyToCombinator(K<T> a, P b) {
+T applyToCombinator(K<T> a, P b) {
     return a.getFirstArg();
 }
 //Функция для I - комбинатора
 template<typename P>
-auto applyToCombinator(I a, P b)
+P applyToCombinator(I a, P b)
 {
     return b;
 }

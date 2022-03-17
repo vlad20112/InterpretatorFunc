@@ -4,11 +4,10 @@
 Function->(functionName, [ListArgs], Combinator *)*/
 #ifndef CONSTR_H
 #define CONSTR_H
-#include "constructorElem.h"
 #include "../Libs/combinators.h"
 #include "../Libs/contVar.h"
 template <typename T>
-I<T> createI(T elem);
+I createI(T elem);
 template <typename T>
 K<T> createK(T firstArg);
 template <class T, class P>
