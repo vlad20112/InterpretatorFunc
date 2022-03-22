@@ -19,10 +19,10 @@ enum CompOperations{
     RATHER
 };
 template<typename M, typename N, typename T>
-M applyToCombinator(M f, N g, T x, Comb cb = S);
+M applyToCombinator(Comb cb , M f, N g, T x);
 template<typename M, typename T>
-T applyToCombinator(M x, T y, Comb cb = K);
+M applyToCombinator(Comb cb, M x, T y);
 template <typename T>
-T applyToCombinator(T x, Comb cb = I);
+T applyToCombinator(Comb cb, T x);
 
 #endif

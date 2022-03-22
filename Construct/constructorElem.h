@@ -39,4 +39,8 @@ public:
         return functionArguments;
     }
 };
+void addNode(Node *elemTree, Comb paste)
+{
+
+}
 #endif
