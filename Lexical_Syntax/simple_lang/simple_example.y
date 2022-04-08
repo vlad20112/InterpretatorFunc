@@ -4,6 +4,7 @@
     #include <stdlib.h>
     #include <string.h>
     #include "contVar.h"
+    #include "../../Libs/types.h"
 //Definition for lexer prototype
     int yylex();
     int yyerror(const char *p) {printf("Error %s \n", p);}
