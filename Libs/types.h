@@ -41,6 +41,12 @@ act_elem *firstArg;
 act_elem *secondArg;
 };
 
+struct func_node{
+    char *funcName;
+    char **funcArgs;
+    struct act_elem funcBody;
+};
+
 //структура для хранения комбинаторного дерева
 
 #endif
