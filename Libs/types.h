@@ -1,28 +1,52 @@
 //Далее описаны перечисляемые классы для булевого типа, результаты сравнения и типы комбинаторов
 #ifndef TYPES_H
 #define TYPES_H
+
+#define MULT 42
+#define PLUS 43
+#define MINUS 45
+#define DIVIDE 47
 /*перечсляемый тип для булевых операций*/
 enum BoolFunc
 {
-    FALSE,
-    TRUE
+    TRUE = 0,
+    FALSE
 };
 /*перечисляемый тип для операций сравнения*/
 enum Ord
 {
-    LT,
+    LT = 10,
     EQ,
     RT
 };
-/*Перечисляемый тип для идентификации типа каждого комбинатора*/
+/*Перечисляемый тип для идентификации комбинаторов*/
 enum Comb
 {
-    SS,
-    KK,
-    II,
-    BB,
-    CC
+    S = 100,
+    K,
+    I,
+    B,
+    C
+};
+enum action_comb{
+    APP = 101,
+    VAR,
+    LAM
 };
 
+struct act_elem{
+action_comb act;
+char *elem;
+act_elem *firstArg;
+act_elem *secondArg;
+};
+
+struct func_node{
+    char *funcName;
+    char **funcArgs;
+    struct act_elem funcBody;
+};
+
+//структура для хранения комбинаторного дерева
 
 #endif

@@ -7,32 +7,40 @@
 #define CONSTRUCTORELEM_H
 #include <list>
 #include <string>
-template <class T>
+#include "../Libs/types.h"
+
 class Construction
 {
 private:
     // комбинаторная контрукция
-    T constructorTree; 
+    Node constructorTree; 
     // имя функции. По нему происходит поиск среди существующих функций и вызов с аргументами
     std::string functionName; 
     // список параметров, применяемых внутри тела функции 
     std::list<std::string> functionArguments; 
 
 public:
-    Construction(std::string name, std::list<std::string> arguments, T combinator) : functionName(name),
+    Construction(std::string name, std::list<std::string> arguments, Node combinator) : functionName(name),
                                                                                      functionArguments(arguments),
                                                                                      constructorTree(combinator) {}
-    T getConstructorTree()
+                                                                                     //Получение комбинаторного дерева
+    const Node getConstructorTree()
     {
         return constructorTree;
     }
-    std::string getFunctionName()
+    //Получение имени функции
+    const std::string getFunctionName()
     {
         return functionName;
     }
-    std::list<std::string> getArguments()
+    //получение набора аргументов
+    const std::list<std::string> getArguments()
     {
         return functionArguments;
     }
 };
+void addNode(Node *elemTree, Comb paste)
+{
+
+}
 #endif

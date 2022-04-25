@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "evaluator.h"
 #include <iostream>
 BoolFunc logicAnd(BoolFunc a, BoolFunc b);

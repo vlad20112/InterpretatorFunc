@@ -25,10 +25,9 @@ class AbstractCombinator
 {
 private:
     int type;
-
 public:
     void setType(int a) { type = a; }
-    int getType() { return type; }
+    const int getType() { return type; }
 };
 /*опиcание ккомбинатора S*/
 template <class T, class N>
@@ -41,6 +40,8 @@ public:
     /*реализация конструктора комбинатора S*/
     S<T, N> (T f, N g) : firstArg(f),
                          secondArg(g)
+    {setType(Comb::SS);}
+    S<T, N> (T f, N): firstArg(f)
     {setType(Comb::SS);}
     T getFirstArg() { return firstArg; }
     N getSecondArg(){ return secondArg; }
@@ -62,14 +63,17 @@ public:
 /*Описание комбинатора I*/
 class I : public AbstractCombinator
 {
-
 public:
     /*реализация конструктора I*/
-    I(){setType(Comb::II);}
-
+    I() {setType(Comb::II);}
     /*описание методов ввода/вывода комбинатора I*/
 
-  };
+    friend ostream &operator<<(std::ostream &out, const I &elem)
+    {
+        out << "I";
+        return out;
+    }
+};
 /*реализация B комбинатора*/
 template<class T, class N>
 class B: public AbstractCombinator

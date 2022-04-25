@@ -1,20 +1,26 @@
 //Файл, в котором описаны коды для основных операций
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
-enum NumOperations
-{
-    ADD = 10,
-    SUB,
-    MULT
-};
-enum BoolOperations{
+#include <cstdlib>
+#include <cstring>
+#include "types.h"
+
+/*enum  BoolOperations{
     LOGAND = 20,
     LOGOR,
     LOGNOT
 };
-enum CompOperations{
+enum  CompOperations{
     LESS = 30,
     EQUAL,
     RATHER
 };
+*/
+
+int isOperator(char ch);
+
+//функция перевода выражения к промежуточному виду
+
+void lineToAction(struct act_elem *result, char *line);
+
 #endif

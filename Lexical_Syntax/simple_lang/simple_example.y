@@ -4,10 +4,15 @@
     #include <stdlib.h>
     #include <limits.h>
     #include <string.h>
+<<<<<<< HEAD
     //#define YYSTYPE double
     #include "../../Libs/contVar.h"
     static contVar container[MAX_LENGHT] = {};
     static int indexer = 0;
+=======
+    #include "contVar.h"
+    #include "../../Libs/types.h"
+>>>>>>> combinators_test
 //Definition for lexer prototype
     int yylex();
     int yyerror(const char *p) {printf("Error %s \n", p);}
