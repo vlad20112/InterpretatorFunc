@@ -6,3 +6,4 @@ typedef struct contVar
     char *id;
     int value;
 }contVar;
+#endif

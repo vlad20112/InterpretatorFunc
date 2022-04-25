@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 bison -d simple_example.y --xml="My_grammar.xml"
 xsltproc /usr/share/bison/xslt/xml2xhtml.xsl My_grammar.xml > pict.html
 flex simple_lexer.l

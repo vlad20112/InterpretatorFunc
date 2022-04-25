@@ -4,15 +4,11 @@
     #include <stdlib.h>
     #include <limits.h>
     #include <string.h>
-<<<<<<< HEAD
     //#define YYSTYPE double
     #include "../../Libs/contVar.h"
+    #include "../../Libs/types.h"
     static contVar container[MAX_LENGHT] = {};
     static int indexer = 0;
-=======
-    #include "contVar.h"
-    #include "../../Libs/types.h"
->>>>>>> combinators_test
 //Definition for lexer prototype
     int yylex();
     int yyerror(const char *p) {printf("Error %s \n", p);}
@@ -52,11 +48,14 @@ Expr:Value                     {$$ = $1;}
 	;
 
 
-
 Value:number                   {$$ = $1;}
 	|identifier                 {$$ = retIdValue($1);} ;
 %%
 
+void createCombinator(char *left, char *right)
+{
+    
+}
 int retIdValue(char ch[])
 {
 
@@ -99,7 +98,8 @@ void addToArgs(char ch[], int val)
             return;
         }
     memArg(&container[indexer], ch, val);
-    //printf("Id container: %c \n Value in container: %d \n",container[indexer].id, container[indexer].value);
+    //printf("Id container: %c \n Value in container: %d \n",
+     //   container[indexer].id, container[indexer].value);
     indexer++;
     return;
 }
