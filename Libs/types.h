@@ -28,23 +28,23 @@ enum Comb
     B,
     C
 };
-enum action_comb{
+typedef enum {
     APP = 101,
     VAR,
     LAM
-};
+}action_comb;
 
-struct act_elem{
+typedef struct action_elem{
 action_comb act;
 char *elem;
-act_elem *firstArg;
-act_elem *secondArg;
-};
+struct action_elem *firstArg;
+struct action_elem *secondArg;
+}act_elem;
 
 struct func_node{
     char *funcName;
     char **funcArgs;
-    struct act_elem funcBody;
+    act_elem funcBody;
 };
 
 //структура для хранения комбинаторного дерева
