@@ -7,7 +7,7 @@
     //#define YYSTYPE double
     #include "../../Libs/contVar.h"
     #include "../../Libs/types.h"
-    typedef act_elem action;
+    
     static contVar container[MAX_LENGHT] = {};
     static struct func_node funcContainer[MAX_LENGHT] = {};
     static act_elem cellFunction;
@@ -25,7 +25,7 @@
 %union {
     int num;
     char *id;
-    action func;
+    act_elem func;
     };
 //Start terminal
 //Tokens for some job in grammar
@@ -36,13 +36,12 @@
 %token exit_com
 //Declaratons types for return value
 %type <num> Expr Value
-%type <id> id_line funcValue
+%type <id> id_line 
 %type<func> funcExpr
 %%
 main:exit_com ';'                   {exit(EXIT_SUCCESS);}
      |print Expr ';'                   {printf("%d \n", $2);}
      |id_line ';'                         {printf("Argument has added \n Index: %d \n Value in container: %d identifier in container: %s", indexer, container[indexer - 1].value, container[indexer - 1].id);}
-     |function_decl ';'                  {}
      |main id_line ';'                 {/* printf("Argument has added \n Index: %d \n Value in container: %d ", indexer, container[indexer].value); */}
      |main print Expr ';'           {printf("Result rec is: %d \n", $3);}
      |main exit_com ';'             {exit(EXIT_SUCCESS);}
@@ -56,11 +55,15 @@ argList:
     | identifier argList
     ;
 
-funcExpr:funcValue           
-    | funcExpr funcExpr     { }
-    ;
-funcValue: identifier                      {$$ = $1;}
-    | number                                    {$$ = $1;}
+funcExpr: identifier          { $$.act = VAR;
+                                            $$.elem = (char *) malloc(sizeof(char *));
+                                            strcpy($$.elem, $1);
+                                          }           
+    | funcExpr funcExpr     {
+        $$.act = APP; 
+        $$.firstArg = (act_elem *) malloc(sizeof(act_elem *));
+        $$.secondArg = (act_elem *)malloc(sizeof(act_elem *));
+     }
     ;
 Expr:Value                        {$$ = $1;}
     |Expr '-' Value              {$$ = $1 - $3;}
@@ -94,9 +97,7 @@ int retIdValue(char ch[])
 void memArg(contVar *cell, char *newId, int newVal)
 {
     size_t lenCh = strlen(newId);
-    //printf("lenght %d \n", lenCh);
     cell->id = (char *) malloc(lenCh * sizeof(char *));
-    //printf("cell malloc \n");
     strcpy(cell->id, newId);
     //printf("copy id %s \n", newId);
     cell->value = newVal;

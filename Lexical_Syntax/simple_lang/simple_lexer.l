@@ -1,5 +1,7 @@
 %{
+    #include "../../Libs/types.h"
     #include "simple_example.tab.h"
+    
 %}
 %option noyywrap
 letter   [a-zA-Z]
@@ -11,15 +13,8 @@ NUM      (({num1}+({num})*)|0)
 "exit"      {return exit_com;}
 "print"     {return print;}
 {NUM}       {yylval.num = atoi(yytext); return number;}
-{ID}        {printf("lenght \n"); mallocMemory(yylval.id, yytext); printf("%s \n %s \n", yytext, yylval.id); return identifier;}
-\"ID\"      {printf("string \n"; mallocMemory(yylval.id, yytext); return string;)}
+{ID}        {printf("lenght \n"); yylval.id = (char *) malloc( strlen(yytext) * sizeof( char *) ); strcpy(yylval.id, yytext); printf("%s \n %s \n", yytext, yylval.id); return identifier;}
 [-+*=;]       {return yytext[0];}
 [ \n\t]         ;
 .           {printf("What is that!?? \n");}
 %%
-
-void mallocMemory(char *dest, char *source)
-{
-    dest = (char *) malloc(sizeof(source) * sizeof(char *));
-    strcpy(dest, source);
-}
