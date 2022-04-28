@@ -12,9 +12,10 @@ NUM      (({num1}+({num})*)|0)
 %%
 "exit"      {return exit_com;}
 "print"     {return print;}
-{NUM}       {yylval.num = atoi(yytext); return number;}
-{ID}        {printf("lenght \n"); yylval.id = (char *) malloc( strlen(yytext) * sizeof( char *) ); strcpy(yylval.id, yytext); printf("%s \n %s \n", yytext, yylval.id); return identifier;}
-[-+*=;]       {return yytext[0];}
-[ \n\t]         ;
+{NUM}       {yylval.num = atoi(yytext);printf("%s \n", yytext); return number;}
+{ID}        {yylval.id = (char *) malloc( strlen(yytext) * sizeof( char *) ); strcpy(yylval.id, yytext); printf("%s 'n", yytext);return identifier;}
+[-+*]       {yylval.op = yytext[0]; return operator;}
+[\n\t\[\]\{\}=;]    {printf("%c", yytext[0]); return yytext[0];}
+[ ]             ;
 .           {printf("What is that!?? \n");}
 %%

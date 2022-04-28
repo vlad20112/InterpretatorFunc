@@ -10,7 +10,7 @@
     
     static contVar container[MAX_LENGHT] = {};
     static struct func_node funcContainer[MAX_LENGHT] = {};
-    static act_elem cellFunction;
+    static struct func_node cellFuncNode;
     static int indexer = 0;
 
 //Definition for lexer prototype
@@ -20,50 +20,69 @@
     int retIdValue(char ch[]);
     void translateLineToCombinator(char *line);
     void memArg(contVar *cell, char *newId, int newVal);
+    void fillFuncNode(char *funcName, char **argList, act_elem cell);
 %}
 //symbol semantics value
 %union {
     int num;
     char *id;
+    char **list;
+    char op;
     act_elem func;
     };
 //Start terminal
 //Tokens for some job in grammar
 %token <num> number
-%token <id> identifier
+%token <id> identifier operator
 %token<id> string
 %token print
 %token exit_com
 //Declaratons types for return value
 %type <num> Expr Value
 %type <id> id_line 
-%type<func> funcExpr
+%type<func> funcExpr funcValue
+%type<list> argList
 %%
 main:exit_com ';'                   {exit(EXIT_SUCCESS);}
      |print Expr ';'                   {printf("%d \n", $2);}
      |id_line ';'                         {printf("Argument has added \n Index: %d \n Value in container: %d identifier in container: %s", indexer, container[indexer - 1].value, container[indexer - 1].id);}
+     |function_decl ';'              {}
      |main id_line ';'                 {/* printf("Argument has added \n Index: %d \n Value in container: %d ", indexer, container[indexer].value); */}
      |main print Expr ';'           {printf("Result rec is: %d \n", $3);}
      |main exit_com ';'             {exit(EXIT_SUCCESS);}
+     |main function_decl ';'      {}
+
 
 id_line:identifier '=' Value  {printf("assigment \n"); addToArgs($1, $3);} 
     ;
 
-function_decl: identifier '[' argList ']' '=' funcExpr
+function_decl: identifier argList '{' funcExpr '}' { fillFuncNode($1, $2, $4);  printf("write function \n");}
     ;
-argList: 
-    | identifier argList
+argList: '[' list ']'
+    ;
+list: 
+    | identifier            {printf('tnedi \n');}
+    | identifier list      {printf("ident \n");}  
     ;
 
-funcExpr: identifier          { $$.act = VAR;
-                                            $$.elem = (char *) malloc(sizeof(char *));
-                                            strcpy($$.elem, $1);
-                                          }           
-    | funcExpr funcExpr     {
+funcExpr: funcValue                     {;$$ = $1; }
+        |funcValue funcExpr     {
         $$.act = APP; 
         $$.firstArg = (act_elem *) malloc(sizeof(act_elem *));
         $$.secondArg = (act_elem *)malloc(sizeof(act_elem *));
+        $$.firstArg = (struct elem *) &$1;
+        $$.secondArg = (struct elem *)&$2;
      }
+     funcValue: identifier{ 
+                                        $$.act = VAR;
+                                        $$.elem = (char *) malloc(sizeof(char *));
+                                        strcpy($$.elem, $1);
+                                     } 
+                    |operator {   
+                                        $$.act = VAR;
+                                        $$.elem = (char *) malloc(sizeof(char *));
+                                        strcpy($$.elem, (char *)&$1);
+                                    }          
     ;
 Expr:Value                        {$$ = $1;}
     |Expr '-' Value              {$$ = $1 - $3;}
@@ -135,11 +154,17 @@ void addToArgs(char ch[], int val)
 
 }*/
 
-void translateLineToCombinator(char *line)
+/*
+void translateLineToCombinator(act_elem node, char *line)
 {
-    cellFunction.act = VAR;
-    cellFunction.elem = (char *) malloc(strlen(line) * sizeof(char *));
-    strcpy(cellFunction.elem, line);
+    node.act = VAR;
+    node.elem = (char *) malloc(strlen(line) * sizeof(char *));
+    strcpy(node.elem, line);
+}*/
+
+void fillFuncNode(char *funcName, char **argList, act_elem cell)
+{
+
 }
 
 int main()
