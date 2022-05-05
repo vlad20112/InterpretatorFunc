@@ -21,7 +21,7 @@
     int retIdFunction(char ch[]);
     void translateLineToCombinator(char *line);
     void memArg(contVar *cell, char *newId, int newVal);
-    void fillFuncNode(struct func_node *cell, char *funcName, char **argList, act_elem node);
+    void fillFuncNode(char *funcName, char **argList, act_elem node);
 %}
 //symbol semantics value
 %union {
@@ -61,7 +61,7 @@ main:exit_com ';'                   {exit(EXIT_SUCCESS);}
 id_line:identifier '=' Value  {printf("assigment \n"); addToArgs($1, $3);} 
     ;
 
-function_decl: identifier argList '{' funcExpr '}' { printf("write function \n"); /*fillFuncNode( &funcContainer[indexer], $1, $2, $4);*/}
+function_decl: identifier argList '{' funcExpr '}' { printf("write function \n"); fillFuncNode( $1, $2, $4);}
     ;
 lam_func_decl: funcExpr          {}
     | lambda identifier lam_func_decl         {} 
@@ -184,11 +184,11 @@ void translateLineToCombinator(act_elem node, char *line)
     strcpy(node.elem, line);
 }*/
 
-void fillFuncNode(struct func_node *cell, char *funcName, char **argList, act_elem node)
+void fillFuncNode(char *funcName, char **argList, act_elem node)
 {
-    cell = (struct func_node *)malloc(sizeof(struct func_node *));
-    strcpy(cell->funcName, funcName);
-    cell->funcBody = node;
+    funcContainer[indexer].funcName = (char *) malloc(sizeof(char *));
+    strcpy(funcContainer[indexer].funcName, funcName);
+    funcContainer[indexer].funcBody = node;
     indexer++;
 }
 
