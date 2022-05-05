@@ -18,9 +18,10 @@
     int yyerror(const char *p) {printf("Error %s \n", p);}
     void addToArgs(char ch[], int val);
     int retIdValue(char ch[]);
+    int retIdFunction(char ch[]);
     void translateLineToCombinator(char *line);
     void memArg(contVar *cell, char *newId, int newVal);
-    void fillFuncNode(char *funcName, char **argList, act_elem cell);
+    void fillFuncNode(struct func_node *cell, char *funcName, char **argList, act_elem node);
 %}
 //symbol semantics value
 %union {
@@ -29,6 +30,7 @@
     char **list;
     char op;
     act_elem func;
+    struct func_node funcer;
     };
 //Start terminal
 //Tokens for some job in grammar
@@ -36,27 +38,33 @@
 %token <id> identifier operator
 %token<id> string
 %token print
+%token lambda
 %token exit_com
 //Declaratons types for return value
 %type <num> Expr Value
 %type <id> id_line 
-%type<func> funcExpr funcValue
+%type<func> funcExpr funcValue 
 %type<list> argList
 %%
 main:exit_com ';'                   {exit(EXIT_SUCCESS);}
      |print Expr ';'                   {printf("%d \n", $2);}
      |id_line ';'                         {printf("Argument has added \n Index: %d \n Value in container: %d identifier in container: %s", indexer, container[indexer - 1].value, container[indexer - 1].id);}
-     |function_decl ';'              {}
+     |lam_func_decl ';'             {}
+     |function_decl ';'              {printf("Function has declared \n Index: %d \n", indexer);}
      |main id_line ';'                 {/* printf("Argument has added \n Index: %d \n Value in container: %d ", indexer, container[indexer].value); */}
      |main print Expr ';'           {printf("Result rec is: %d \n", $3);}
      |main exit_com ';'             {exit(EXIT_SUCCESS);}
+     |main lam_func_decl ';'    {}
      |main function_decl ';'      {}
 
 
 id_line:identifier '=' Value  {printf("assigment \n"); addToArgs($1, $3);} 
     ;
 
-function_decl: identifier argList '{' funcExpr '}' { fillFuncNode($1, $2, $4);  printf("write function \n");}
+function_decl: identifier argList '{' funcExpr '}' { printf("write function \n"); /*fillFuncNode( &funcContainer[indexer], $1, $2, $4);*/}
+    ;
+lam_func_decl: funcExpr          {}
+    | lambda identifier lam_func_decl         {} 
     ;
 argList: '[' list ']'
     ;
@@ -74,32 +82,41 @@ funcExpr: funcValue                     {;$$ = $1; }
         $$.secondArg = (struct elem *)&$2;
      }
      funcValue: identifier{ 
+                                        printf("Variable \n");
                                         $$.act = VAR;
                                         $$.elem = (char *) malloc(sizeof(char *));
                                         strcpy($$.elem, $1);
                                      } 
                     |operator {   
+                                        printf("Operator \n");
                                         $$.act = VAR;
                                         $$.elem = (char *) malloc(sizeof(char *));
                                         strcpy($$.elem, (char *)&$1);
-                                    }          
+                                    } 
+                    |number {
+                                        printf("Number \n");
+                                  }         
     ;
 Expr:Value                        {$$ = $1;}
-    |Expr '-' Value              {$$ = $1 - $3;}
-	|Expr '*' Value              {$$ = $1 * $3;}
-    |Expr '+' Value              {$$ = $1 + $3;}
+    |Expr operator Value    {
+            printf("my operator: %c \n", yylval.op);
+            if(yylval.op == '+')
+                $$ = $1 + $3;
+            if (yylval.op == '-')
+                $$ = $1 - $3;
+            if (yylval.op =='*' )
+                $$ = $1 * $3;
+            }
 	;
 
 
 Value:number                   {$$ = $1;}
-	| identifier                 {$$ = retIdValue($1);} ;
+	| identifier                 {$$ = retIdValue($1);} 
     ;
+
 %%
 
-void createCombinator(char *left, char *right)
-{
-    
-}
+// Вернёт закрепленное за переменной значение
 int retIdValue(char ch[])
 {
 
@@ -112,6 +129,11 @@ int retIdValue(char ch[])
             }
             //printf("[%c, %d]\n", container[indexer].id, result);
     return result;
+}
+
+int retIdFunction(char ch[])
+{
+
 }
 void memArg(contVar *cell, char *newId, int newVal)
 {
@@ -162,9 +184,22 @@ void translateLineToCombinator(act_elem node, char *line)
     strcpy(node.elem, line);
 }*/
 
-void fillFuncNode(char *funcName, char **argList, act_elem cell)
+void fillFuncNode(struct func_node *cell, char *funcName, char **argList, act_elem node)
 {
+    cell = (struct func_node *)malloc(sizeof(struct func_node *));
+    strcpy(cell->funcName, funcName);
+    cell->funcBody = node;
+    indexer++;
+}
 
+void printCombNode(act_elem *node)
+{
+    switch(node -> act)
+    {
+        case APP: {} break;
+        case VAR:{printf("Variable %s ", node -> elem);} break;
+        case LAM:{} break;
+    }
 }
 
 int main()
