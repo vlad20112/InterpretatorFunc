@@ -12,6 +12,8 @@ enum BoolFunc
     TRUE = 0,
     FALSE
 };
+
+static const char *operators[] = {"+", "-", "*", "/", "&&", "||"};
 /*перечисляемый тип для операций сравнения*/
 enum Ord
 {
@@ -19,34 +21,22 @@ enum Ord
     EQ,
     RT
 };
-/*Перечисляемый тип для идентификации комбинаторов*/
-enum Comb
-{
-    S = 100,
-    K,
-    I,
-    B,
-    C
-};
+//Тип узла для первичного дерева
 typedef enum {
     APP = 101,
     VAR,
     LAM
 }action_comb;
 
-typedef struct action_elem{
-action_comb act;
-char *elem;
-struct action_elem *firstArg;
-struct action_elem *secondArg;
-}act_elem;
-
-struct func_node{
-    char *funcName;
-    char **funcArgs;
-    act_elem funcBody;
-};
-
-//структура для хранения комбинаторного дерева
+/*Перечисляемый тип для идентификации комбинаторов*/
+typedef enum {
+    S = 200,
+    K,
+    I,
+    B,
+    C, 
+    Y,
+    END
+}combinator;
 
 #endif

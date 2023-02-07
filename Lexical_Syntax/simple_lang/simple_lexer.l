@@ -1,7 +1,6 @@
 %{
     #include "../../Libs/types.h"
-    #include "simple_example.tab.h"
-    
+    #include "simple_example.tab.h"    
 %}
 %option noyywrap
 letter   [a-zA-Z]
